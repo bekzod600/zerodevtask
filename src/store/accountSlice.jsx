@@ -21,7 +21,7 @@ export const addAccaunt = createAsyncThunk("addAccaunt", async (payload) => {
   return response.data;
 });
 export const updAccaunt = createAsyncThunk("updAccaunt", async (payload) => {
-  const response = await patchRequest(`accounts/${payload.id}`, payload);
+  const response = await patchRequest(`accounts/${payload.id}`, payload.data);
   return response.data;
 });
 export const delAccaunt = createAsyncThunk("delAccaunt", async (payload) => {
@@ -59,6 +59,11 @@ export const accauntSlice = createSlice({
       })
       .addCase(addAccaunt.fulfilled, (state, action) => {
         state.accaunts = state.accaunts.concat(action.payload);
+      })
+      .addCase(updAccaunt.fulfilled, (state, action) => {
+        state.accaunts = state.accaunts.map((acc) => {
+          return acc.id === action.payload.id ? action.payload : acc;
+        });
       });
   },
 });

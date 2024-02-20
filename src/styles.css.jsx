@@ -110,7 +110,6 @@ export const App = styled.main`
 
   .popup-menu {
     position: absolute;
-    /* width: 40px; */
     top: 0;
     right: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -125,6 +124,39 @@ export const App = styled.main`
 
       &:hover {
         background-color: #d8d8d8;
+      }
+    }
+  }
+  .edit--input {
+    width: 8rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: 1px solid #ccc;
+  }
+
+  .edit--btns {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    button {
+      padding: 0.4rem 1rem;
+      border: 0;
+      border-radius: 1rem;
+      color: white;
+    }
+    .trash-btn {
+      background-color: #39b385;
+      &:hover {
+        background-color: #51c99b;
+      }
+    }
+    .close-btn {
+      background-color: #e52a5a;
+      &:hover {
+        background-color: #eb3e6a;
       }
     }
   }
