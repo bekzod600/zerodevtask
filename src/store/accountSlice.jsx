@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getRequest } from "../helpers/requests";
+import {
+  deleteRequest,
+  getRequest,
+  patchRequest,
+  postRequest,
+} from "../helpers/requests";
 
 const initialState = {
   accaunts: [],
@@ -9,6 +14,19 @@ const initialState = {
 
 export const fetchAccaunts = createAsyncThunk("accaunts", async () => {
   const response = await getRequest("accounts");
+  return response.data;
+});
+export const addAccaunt = createAsyncThunk("addAccaunt", async (payload) => {
+  const response = await postRequest("accounts", payload);
+  return response.data;
+});
+export const updAccaunt = createAsyncThunk("updAccaunt", async (payload) => {
+  const response = await patchRequest(`accounts/${payload.id}`, payload);
+  return response.data;
+});
+export const delAccaunt = createAsyncThunk("delAccaunt", async (payload) => {
+  console.log(`accounts/${payload}`);
+  const response = await deleteRequest(`accounts/${payload}`);
   return response.data;
 });
 
@@ -27,12 +45,20 @@ export const accauntSlice = createSlice({
       })
       .addCase(fetchAccaunts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Add any fetched posts to the array
         state.accaunts = state.accaunts.concat(action.payload);
       })
       .addCase(fetchAccaunts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(delAccaunt.fulfilled, (state, action) => {
+        console.log("h2");
+        state.accaunts = state.accaunts.filter(
+          (acc) => acc.id !== action.payload.id
+        );
+      })
+      .addCase(addAccaunt.fulfilled, (state, action) => {
+        state.accaunts = state.accaunts.concat(action.payload);
       });
   },
 });
@@ -40,11 +66,15 @@ export const accauntSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { addAccauntState } = accauntSlice.actions;
 
-export const selectAllAccaunts = (state) => state.accaunt.accaunts;
-export const credits = (state) =>
-  state.accaunt.accaunts.filter((ac) => ac.type === "credit");
-export const debits = (state) =>
-  state.accaunt.accaunts.filter((ac) => ac.type === "debit");
+export const selectAllAccaunts = (state) => {
+  return state.accaunt.accaunts;
+};
+export const credits = (state) => {
+  return state.accaunt.accaunts.filter((ac) => ac.type === "credit");
+};
+export const debits = (state) => {
+  return state.accaunt.accaunts.filter((ac) => ac?.type === "debit");
+};
 
 export const sum = (state) => {
   return state.accaunt.accaunts.reduce((acc, curr) => {

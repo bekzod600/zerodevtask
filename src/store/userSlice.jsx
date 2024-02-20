@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getRequest } from "../helpers/requests";
 
+const authUser =
+  localStorage.getItem("authUser") !== null
+    ? JSON.parse(localStorage.getItem("authUser"))
+    : { id: "1", user: "test", pin: "1111" };
+
 const initialState = {
   users: [],
-  authenticatedUser: { user: "test", pin: "1111" },
+  authenticatedUser: authUser,
   status: "idle",
   error: "",
 };
