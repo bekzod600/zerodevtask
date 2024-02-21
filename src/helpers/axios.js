@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosClient = axios.create();
 
-axiosClient.defaults.baseURL = "http://localhost:3000";
+axiosClient.defaults.baseURL = "https://zerodevtask-api.onrender.com";
 
 axiosClient.defaults.headers = {
   "Content-Type": "application/json",
