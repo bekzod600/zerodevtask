@@ -58,7 +58,6 @@ const Home = () => {
   return (
     <section id="home">
       <Header />
-
       <App className="app">
         <Balance />
         <Movments accaunts={accaunts} />
