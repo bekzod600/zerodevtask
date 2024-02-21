@@ -35,6 +35,7 @@ export const App = styled.main`
     grid-column: 1 / span 2;
     display: flex;
     align-items: flex-end;
+    flex-direction: row;
     justify-content: space-between;
     margin-bottom: 1.4rem;
   }
@@ -68,6 +69,7 @@ export const App = styled.main`
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eee;
+    min-width: max-content;
   }
 
   .movements__type {
@@ -165,9 +167,13 @@ export const App = styled.main`
   .summary {
     grid-row: 5 / 6;
     display: flex;
-    align-items: baseline;
     padding: 0 0.3rem;
     margin-top: 0.7rem;
+
+    > div {
+      display: flex;
+      align-items: baseline;
+    }
   }
 
   .summary__label {
@@ -281,8 +287,55 @@ export const App = styled.main`
   }
   .chart {
     /* -ms-grid-row-span: 2; */
-    grid-row-start: 2;
-    grid-row-end: 4;
+    /* grid-row-start: 2;
+    grid-row-end: 4; */
+    grid-row: 2 / 4;
     height: 100%;
+    border-radius: 0.6rem;
+    overflow: hidden;
+  }
+
+  @media only screen and (max-width: 934px) {
+    .balance {
+    }
+    grid-template-columns: 1fr 1fr;
+    .movements {
+      grid-row: 3 / 5;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    .chart {
+      grid-row: 2 / 3;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .balance {
+      flex-direction: column;
+      align-items: start;
+    }
+    .movements {
+      grid-row: 3 / 5;
+      grid-column: 1 / 3;
+    }
+    .chart {
+      grid-row: 2 / 3;
+      grid-column: 1 / 3;
+    }
+    .operation {
+      grid-row: 5 / 6;
+      grid-column: 1 / 3;
+    }
+    .summary {
+      grid-row: 6 / 7;
+      grid-column: 1 / 3;
+
+      flex-direction: column;
+      > div {
+      }
+    }
+    .balance__cont {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

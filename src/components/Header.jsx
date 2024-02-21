@@ -36,10 +36,10 @@ const Header = () => {
           <NavbarLink to="/">Home</NavbarLink>
         </ListItem>
         <ListItem>
-          <NavbarLink to="/debit">Debit</NavbarLink>
+          <NavbarLink to="/debit">DEBIT</NavbarLink>
         </ListItem>
         <ListItem>
-          <NavbarLink to="/kredit">Kredit</NavbarLink>
+          <NavbarLink to="/kredit">KREDIT</NavbarLink>
         </ListItem>
       </ListNav>
       <p className="welcome">Welcome {authUser.user}</p>

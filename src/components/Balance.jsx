@@ -14,7 +14,7 @@ const Balance = () => {
 
   return (
     <section className="balance">
-      <div>
+      <div className="balance__cont">
         <p className="balance__label">Current balance</p>
         <p className="balance__date">
           As of <span className="date">{dateConfig(date)}</span>

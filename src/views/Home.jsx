@@ -64,10 +64,14 @@ const Home = () => {
         <Movments accaunts={accaunts} />
 
         <div className="summary">
-          <p className="summary__label">In</p>
-          <p className="summary__value summary__value--in">{debit}sum</p>
-          <p className="summary__label">Out</p>
-          <p className="summary__value summary__value--out">{credit}sum</p>
+          <div>
+            <p className="summary__label">In</p>
+            <p className="summary__value summary__value--in">{debit}sum</p>
+          </div>
+          <div>
+            <p className="summary__label">Out</p>
+            <p className="summary__value summary__value--out">{credit}sum</p>
+          </div>
         </div>
 
         <div className="chart">
