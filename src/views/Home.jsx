@@ -16,6 +16,7 @@ import Movments from "../components/Movments";
 
 const Home = () => {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     user: "",
     pin: "",
@@ -26,13 +27,12 @@ const Home = () => {
   const accaunts = useSelector(selectAllAccaunts);
   const debit = useSelector(debitsSum);
   const credit = useSelector(creditsSum);
-
   useEffect(() => {
     if (!authUser.user) navigate("/login");
-  });
+  }, [authUser.user, navigate]);
 
   useEffect(() => {
-    if (accauntStatus === "idle") {
+    if (accauntStatus === "idle" && authUser.user) {
       dispatch(fetchAccaunts(authUser.id));
     }
   }, [accauntStatus, dispatch, authUser]);
@@ -74,18 +74,22 @@ const Home = () => {
         </div>
 
         <div className="chart">
-          <Chart
-            chartType="PieChart"
-            data={[
-              ["Task", "Account book"],
-              ["debit", debit],
-              ["credit", credit],
-            ]}
-            height={"100%"}
-            options={{
-              title: "Account book",
-            }}
-          />
+          {debit ? (
+            <Chart
+              chartType="PieChart"
+              data={[
+                ["Task", "Account book"],
+                ["debit", debit],
+                ["credit", credit],
+              ]}
+              height={"100%"}
+              options={{
+                title: "Account book",
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="operation operation--close">
