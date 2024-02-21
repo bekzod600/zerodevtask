@@ -48,7 +48,6 @@ function Login() {
 
   useEffect(() => {
     if (authenticatedUser.user) navigate("/");
-    console.log(authenticatedUser);
   });
 
   const handleSubmit = (e) => {

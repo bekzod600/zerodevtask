@@ -29,7 +29,6 @@ const Home = () => {
 
   useEffect(() => {
     if (accauntStatus === "idle") {
-      console.log(authUser.id);
       dispatch(fetchAccaunts(authUser.id));
     }
   }, [accauntStatus, dispatch, authUser]);
@@ -41,7 +40,6 @@ const Home = () => {
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     setForm((form) => {
       return { ...form, [name]: value };
     });
@@ -49,7 +47,6 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form, authUser);
     if (form.user !== authUser.user || form.pin !== authUser.pin) {
       return alert("Please write correct user and pin");
     }

@@ -25,7 +25,6 @@ export const updAccaunt = createAsyncThunk("updAccaunt", async (payload) => {
   return response.data;
 });
 export const delAccaunt = createAsyncThunk("delAccaunt", async (payload) => {
-  console.log(`accounts/${payload}`);
   const response = await deleteRequest(`accounts/${payload}`);
   return response.data;
 });
@@ -48,7 +47,6 @@ export const accauntSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(delAccaunt.fulfilled, (state, action) => {
-        console.log("h2");
         state.accaunts = state.accaunts.filter(
           (acc) => acc.id !== action.payload.id
         );
