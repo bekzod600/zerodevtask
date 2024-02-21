@@ -28,14 +28,14 @@ const Home = () => {
   const credit = useSelector(creditsSum);
 
   useEffect(() => {
+    if (!authUser.user) navigate("/login");
+  });
+
+  useEffect(() => {
     if (accauntStatus === "idle") {
       dispatch(fetchAccaunts(authUser.id));
     }
   }, [accauntStatus, dispatch, authUser]);
-
-  useEffect(() => {
-    if (!authUser.user) navigate("/login");
-  });
 
   const handleChange = (e) => {
     e.preventDefault();
