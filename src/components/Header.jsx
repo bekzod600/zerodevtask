@@ -33,7 +33,7 @@ const Header = () => {
       </NavbarLink>
       <ListNav>
         <ListItem>
-          <NavbarLink to="/">Home</NavbarLink>
+          <NavbarLink to="/">HOME</NavbarLink>
         </ListItem>
         <ListItem>
           <NavbarLink to="/debit">DEBIT</NavbarLink>
