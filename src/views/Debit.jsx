@@ -39,9 +39,9 @@ const Debit = () => {
 
   useEffect(() => {
     if (postStatus === "idle") {
-      dispatch(fetchAccaunts());
+      dispatch(fetchAccaunts(authUser.id));
     }
-  }, [postStatus, dispatch]);
+  }, [postStatus, dispatch, authUser]);
 
   return (
     <section id="debit">

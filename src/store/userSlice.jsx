@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getRequest } from "../helpers/requests";
+import { getRequest, postRequest } from "../helpers/requests";
 
 const authUser =
   localStorage.getItem("authUser") !== null
     ? JSON.parse(localStorage.getItem("authUser"))
-    : { id: "1", user: "test", pin: "1111" };
+    : {};
 
 const initialState = {
   users: [],
@@ -17,11 +17,22 @@ export const fetchUsers = createAsyncThunk("users", async () => {
   const response = await getRequest("users");
   return response.data;
 });
+export const addUser = createAsyncThunk("users", async (payload) => {
+  const response = await postRequest("users", payload);
+  return response.data;
+});
 
 export const accauntSlice = createSlice({
   name: "accaunts",
   initialState,
-  reducers: {},
+  reducers: {
+    // addAccauntState: (state, action) => {
+    //   state.accaunts.push(action.payload);
+    // },
+    addAuthUser: (state, action) => {
+      state.authenticatedUser = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -39,7 +50,7 @@ export const accauntSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-// export const { addAccauntState } = accauntSlice.actions;
+export const { addAuthUser } = accauntSlice.actions;
 
 export const selectAllAccaunts = (state) => state.user.users;
 

@@ -12,8 +12,8 @@ const initialState = {
   error: "",
 };
 
-export const fetchAccaunts = createAsyncThunk("accaunts", async () => {
-  const response = await getRequest("accounts");
+export const fetchAccaunts = createAsyncThunk("accaunts", async (payload) => {
+  const response = await getRequest(`accounts?user=${payload ? payload : ""}`);
   return response.data;
 });
 export const addAccaunt = createAsyncThunk("addAccaunt", async (payload) => {
@@ -33,11 +33,7 @@ export const delAccaunt = createAsyncThunk("delAccaunt", async (payload) => {
 export const accauntSlice = createSlice({
   name: "accaunts",
   initialState,
-  reducers: {
-    // addAccauntState: (state, action) => {
-    //   state.accaunts.push(action.payload);
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchAccaunts.pending, (state) => {
@@ -67,9 +63,6 @@ export const accauntSlice = createSlice({
       });
   },
 });
-
-// Action creators are generated for each case reducer function
-export const { addAccauntState } = accauntSlice.actions;
 
 export const selectAllAccaunts = (state) => {
   return state.accaunt.accaunts;

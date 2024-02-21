@@ -5,7 +5,7 @@ import { DefaultInput } from "../components/ui/Inputs";
 import { DefaultForm } from "../components/ui/Form";
 import { Title } from "../components/ui/Texts";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers, addAuthUser } from "../store/userSlice";
+import { fetchUsers, addAuthUser, addUser } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.section`
@@ -26,7 +26,7 @@ const Navigation = styled(Link)`
   }
 `;
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     user: "",
@@ -36,9 +36,9 @@ function Login() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.users);
   const userStatus = useSelector((state) => state.user.status);
-  const authenticatedUser = useSelector(
-    (state) => state.user.authenticatedUser
-  );
+  // const authenticatedUser = useSelector(
+  //   (state) => state.user.authenticatedUser
+  // );
 
   useEffect(() => {
     if (userStatus === "idle") {
@@ -46,19 +46,19 @@ function Login() {
     }
   }, [dispatch, userStatus]);
 
-  useEffect(() => {
-    if (authenticatedUser.user) navigate("/");
-    console.log(authenticatedUser);
-  });
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const authUser = users.find(
-      (user) => user.user === form.user && user.pin === form.pin
-    );
-    if (!authUser) return alert("Please write correct user and pin");
-    localStorage.setItem("authUser", JSON.stringify(authUser));
-    dispatch(addAuthUser(authUser));
+    if (!form.user || !form.pin) return alert("Please write user and pin");
+    const hasUser = users.find((user) => user.user === form.user);
+    if (hasUser) return alert("This account alredy have");
+    const data = {
+      id: String(new Date().getTime()),
+      user: form.user,
+      pin: form.pin,
+    };
+    dispatch(addUser(data));
+    dispatch(addAuthUser(data));
+    localStorage.setItem("authUser", JSON.stringify(data));
     navigate("/");
   };
 
@@ -74,7 +74,7 @@ function Login() {
     <>
       <Wrapper>
         <DefaultForm onSubmit={handleSubmit}>
-          <Title color="white">LOGIN</Title>
+          <Title color="white">SIGN UP</Title>
           <DefaultInput
             type="text"
             name="user"
@@ -90,11 +90,11 @@ function Login() {
             placeholder="pin"
           />
           <DefaultButton>SUBMIT</DefaultButton>
-          <Navigation to="/signup">If you don&apos;t have accaunt</Navigation>
+          <Navigation to="/login">If you have accaunt</Navigation>
         </DefaultForm>
       </Wrapper>
     </>
   );
 }
 
-export default Login;
+export default Signup;
